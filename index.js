@@ -27,6 +27,18 @@ app.get('/clientes', (req, res) => {
     res.json(clientes);
 });
 
+// Ruta PUT para actualizar un cliente existente
+app.put('/clientes/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    let cliente = clientes.find(c => c.id === id);
+    if (cliente) {
+        Object.assign(cliente, req.body);
+        res.json(cliente);
+    } else {
+        res.status(404).send('Cliente no encontrado');
+    }
+});
+
 app.post('/productos', (req, res) => {
     const nuevoProducto = req.body;
     productos.push(nuevoProducto);
@@ -59,3 +71,4 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Servidor Express corriendo en el puerto ${port}`);
 });
+//1
